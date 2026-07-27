@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="文章を貼り付けるだけで、文字数・行数・段落数・UTF-8バイト数・読了時間・音読時間を無料で確認できる日本語向け文字数カウンターです。入力内容は保存・送信しません。"
+    >
+    <meta name="theme-color" content="#ffffff">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'"
+    >
+    <title>高機能文字数カウンター｜日本語ツールボックス</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main-content">本文へ移動</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="site-brand" href="#top" aria-label="日本語ツールボックス トップ">
+          <span class="brand-mark" aria-hidden="true">文</span>
+          <span>日本語ツールボックス</span>
+        </a>
+        <nav aria-label="サイト内ナビゲーション">
+          <ul class="nav-list">
+            <li><a aria-current="page" href="#counter">文字数カウンター</a></li>
+            <li><a href="#how-to-use">使い方</a></li>
+            <li><a href="#faq">よくある質問</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="container hero-inner">
+          <p class="eyebrow">無料・登録不要</p>
+          <h1 id="page-title">高機能文字数カウンター</h1>
+          <p class="hero-lead">
+            日本語の文章を入力するだけで、8種類の集計結果と所要時間の目安をリアルタイムで確認できます。
+          </p>
+          <p class="privacy-note">
+            <span aria-hidden="true">✓</span>
+            入力内容はこのブラウザ内だけで処理され、保存も外部送信もされません。
+          </p>
+        </div>
+      </section>
+
+      <section id="counter" class="tool-section" aria-labelledby="counter-heading">
+        <div class="container">
+          <div class="tool-card">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">TOOL 01</p>
+                <h2 id="counter-heading">文章を入力</h2>
+              </div>
+              <span class="local-processing">ブラウザ内で処理</span>
+            </div>
+
+            <label class="textarea-label" for="text-input">集計する文章</label>
+            <textarea
+              id="text-input"
+              rows="12"
+              placeholder="ここに文章を入力、または貼り付けてください。"
+              aria-describedby="input-help"
+              spellcheck="true"
+            ></textarea>
+            <p id="input-help" class="field-help">
+              入力と同時に結果が更新されます。内容はページを閉じると消えます。
+            </p>
+
+            <div class="button-row" aria-label="入力欄の操作">
+              <button id="sample-button" class="button button-secondary" type="button">
+                入力例をセット
+              </button>
+              <button id="copy-button" class="button button-primary" type="button">
+                全文をコピー
+              </button>
+              <button id="clear-button" class="button button-danger" type="button">
+                入力内容を消去
+              </button>
+            </div>
+            <div
+              id="action-status"
+              class="action-status"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            ></div>
+
+            <section class="results" aria-labelledby="results-heading">
+              <div class="results-heading-row">
+                <h3 id="results-heading">集計結果</h3>
+                <p>Unicodeの文字単位で集計</p>
+              </div>
+              <div class="stats-grid">
+                <article class="stat-card stat-card-primary">
+                  <h4>総文字数</h4>
+                  <p class="stat-value"><output id="total-characters">0</output><span>文字</span></p>
+                  <p>空白・改行を含む</p>
+                </article>
+                <article class="stat-card">
+                  <h4>空白を除く</h4>
+                  <p class="stat-value"><output id="characters-without-spaces">0</output><span>文字</span></p>
+                  <p>改行は含む</p>
+                </article>
+                <article class="stat-card">
+                  <h4>改行を除く</h4>
+                  <p class="stat-value"><output id="characters-without-line-breaks">0</output><span>文字</span></p>
+                  <p>空白は含む</p>
+                </article>
+                <article class="stat-card">
+                  <h4>空白・改行を除く</h4>
+                  <p class="stat-value"><output id="characters-without-spaces-or-breaks">0</output><span>文字</span></p>
+                  <p>本文だけの目安</p>
+                </article>
+                <article class="stat-card">
+                  <h4>行数</h4>
+                  <p class="stat-value"><output id="line-count">0</output><span>行</span></p>
+                  <p>空行を含む</p>
+                </article>
+                <article class="stat-card">
+                  <h4>空行を除く行数</h4>
+                  <p class="stat-value"><output id="non-empty-line-count">0</output><span>行</span></p>
+                  <p>空白だけの行も除く</p>
+                </article>
+                <article class="stat-card">
+                  <h4>段落数</h4>
+                  <p class="stat-value"><output id="paragraph-count">0</output><span>段落</span></p>
+                  <p>空行で区切って集計</p>
+                </article>
+                <article class="stat-card">
+                  <h4>UTF-8バイト数</h4>
+                  <p class="stat-value"><output id="utf8-byte-count">0</output><span>バイト</span></p>
+                  <p>TextEncoderで計測</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="time-estimates" aria-labelledby="time-heading">
+              <h3 id="time-heading">所要時間の目安</h3>
+              <div class="time-grid">
+                <article class="time-card">
+                  <div>
+                    <p class="time-label">読了時間</p>
+                    <p class="time-value"><output id="reading-time">0秒</output></p>
+                  </div>
+                  <p>空白・改行を除いた文字数を、1分あたり500文字で計算しています。</p>
+                </article>
+                <article class="time-card">
+                  <div>
+                    <p class="time-label">音読時間</p>
+                    <p class="time-value"><output id="speaking-time">0秒</output></p>
+                  </div>
+                  <p>空白・改行を除いた文字数を、1分あたり300文字で計算しています。</p>
+                </article>
+              </div>
+              <p class="estimate-caution">読み方や文章の難しさによって実際の時間は変わります。</p>
+            </section>
+
+            <details class="definition-panel">
+              <summary>集計ルールを確認する</summary>
+              <div class="definition-content">
+                <ul>
+                  <li>文字数はUnicodeコードポイント単位です。一般的な絵文字も1文字として数えます。</li>
+                  <li>「空白」は半角・全角スペース、タブなどの横方向の空白文字を指します。</li>
+                  <li>改行コード（CRLF・CR・LFなど）は、1つの改行として統一して数えます。</li>
+                  <li>空行を除いた行数では、空白文字しかない行も空行として扱います。</li>
+                  <li>段落は、1行以上の空行で区切られた文章のまとまりとして数えます。</li>
+                  <li>UTF-8バイト数は、改行をLFに統一した本文をTextEncoderで計測します。</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" aria-labelledby="about-heading">
+        <div class="container narrow-container">
+          <h2 id="about-heading">このツールについて</h2>
+          <p>
+            「高機能文字数カウンター」は、原稿、レポート、SNS投稿などの長さをすぐに確認できる無料ツールです。
+            単純な文字数だけでなく、空白や改行の扱いを分けた数値、行数、段落数、UTF-8バイト数まで一度に表示します。
+          </p>
+        </div>
+      </section>
+
+      <section id="how-to-use" class="content-section content-section-muted" aria-labelledby="how-to-heading">
+        <div class="container narrow-container">
+          <h2 id="how-to-heading">使い方</h2>
+          <ol class="step-list">
+            <li><span>1</span><div><h3>文章を入力する</h3><p>入力欄に文章を直接入力するか、別の場所から貼り付けます。</p></div></li>
+            <li><span>2</span><div><h3>結果を確認する</h3><p>入力するたびに、文字数や所要時間が自動で更新されます。</p></div></li>
+            <li><span>3</span><div><h3>必要に応じてコピーする</h3><p>「全文をコピー」で入力内容をクリップボードへコピーできます。</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="content-section" aria-labelledby="examples-heading">
+        <div class="container narrow-container">
+          <h2 id="examples-heading">こんな場面で使えます</h2>
+          <div class="use-case-grid">
+            <article><h3>ブログ・Web記事</h3><p>記事全体や見出しごとの分量、読了時間を確認したいときに。</p></article>
+            <article><h3>レポート・作文</h3><p>指定文字数に収まっているか、空白を除いた実質的な文字数を確認したいときに。</p></article>
+            <article><h3>SNS・広告文</h3><p>投稿文や説明文を、文字数の上限に合わせて調整したいときに。</p></article>
+            <article><h3>スピーチ・動画台本</h3><p>原稿を読む時間や音読にかかる時間を事前に見積もりたいときに。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="content-section content-section-muted" aria-labelledby="faq-heading">
+        <div class="container narrow-container">
+          <h2 id="faq-heading">よくある質問</h2>
+          <div class="faq-list">
+            <details><summary>入力した文章は保存されますか？</summary><p>いいえ。ブラウザの保存機能は使用していないため、ページを閉じたり再読み込みしたりすると入力内容は消えます。</p></details>
+            <details><summary>入力内容が外部に送信されることはありますか？</summary><p>ありません。すべての集計はお使いのブラウザ内で行われ、入力内容をサーバーや外部サービスへ送信しません。</p></details>
+            <details><summary>絵文字は何文字として数えますか？</summary><p>Unicodeコードポイント単位で数えます。一般的な絵文字は1文字ですが、家族絵文字など複数の要素を組み合わせた絵文字は複数文字になる場合があります。</p></details>
+            <details><summary>読了時間と音読時間は正確ですか？</summary><p>あくまで目安です。読了は毎分500文字、音読は毎分300文字として計算しており、文章の難しさや読み手によって実際の時間は変わります。</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section id="privacy" class="content-section" aria-labelledby="privacy-heading">
+        <div class="container narrow-container">
+          <h2 id="privacy-heading">プライバシーについて</h2>
+          <p>
+            入力された文章は端末内のブラウザでのみ処理します。外部への送信、サーバーへの保存、ブラウザのローカルストレージへの保存は行いません。
+            機密情報を扱う場合も、共有端末のクリップボード履歴など、ご利用環境側の機能には十分ご注意ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section disclaimer-section" aria-labelledby="disclaimer-heading">
+        <div class="container narrow-container">
+          <h2 id="disclaimer-heading">免責事項</h2>
+          <p>
+            集計結果の正確性には配慮していますが、特定の提出先やサービスによって文字数の定義が異なる場合があります。
+            重要な用途では、提出先の規定や実際の入力画面でも最終確認を行ってください。本ツールの利用により生じた損害について、運営者は責任を負いかねます。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <p class="footer-brand">日本語ツールボックス</p>
+          <p>毎日の文章作業を、わかりやすく。</p>
+        </div>
+        <nav aria-label="フッターナビゲーション">
+          <a href="#counter">ツール</a>
+          <a href="#how-to-use">使い方</a>
+          <a href="#privacy">プライバシー</a>
+        </nav>
+        <p class="copyright">&copy; <span id="current-year"></span> 日本語ツールボックス</p>
+      </div>
+    </footer>
+  </body>
+</html>
