@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#071a16" />
+  <meta name="description" content="テキサスホールデムのプリフロップとポストフロップを学ぶ、PC・スマホ対応の学習ツール" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon-192.png" />
+  <title>Hold'em Study Lab</title>
+  <style>
+    :root{
+      --bg:#07110f;--panel:#0d201b;--panel2:#112a23;--line:#23483e;--text:#f3faf7;
+      --muted:#9cb7ad;--accent:#4ade80;--accent2:#2dd4bf;--warn:#fbbf24;--bad:#fb7185;
+      --card:#f8fafc;--ink:#0f172a;--shadow:0 18px 55px rgba(0,0,0,.28);--radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at top right,#123c32 0,transparent 34%),linear-gradient(180deg,#07110f,#081713 52%,#06100e);color:var(--text);font-family:Inter,"Noto Sans JP",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+    button,select,input{font:inherit}
+    button{cursor:pointer}
+    .shell{max-width:1180px;margin:0 auto;padding:20px 16px 80px}
+    header{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#042a20;font-weight:950;box-shadow:var(--shadow)}
+    h1{font-size:clamp(1.25rem,3vw,1.85rem);margin:0}.subtitle{color:var(--muted);font-size:.9rem;margin-top:3px}
+    .badge{border:1px solid var(--line);background:rgba(17,42,35,.8);padding:8px 11px;border-radius:999px;color:#bfe9d9;font-size:.8rem;white-space:nowrap}
+    .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 20px;position:sticky;top:0;z-index:20;padding:8px;background:rgba(7,17,15,.9);backdrop-filter:blur(15px);border-radius:16px}
+    .tab{border:1px solid var(--line);background:#0b1c17;color:var(--muted);padding:11px 8px;border-radius:12px;font-weight:800}
+    .tab.active{color:#04251c;background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent}
+    .view{display:none}.view.active{display:block}
+    .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}
+    .panel{background:linear-gradient(180deg,rgba(17,42,35,.96),rgba(10,28,23,.96));border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .panel h2,.panel h3{margin:0 0 12px}.panel h2{font-size:1.15rem}.panel h3{font-size:1rem;color:#dff7ee}
+    .hint{margin:0 0 14px;color:var(--muted);line-height:1.65;font-size:.9rem}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    label{display:block;color:#cce4da;font-size:.83rem;font-weight:750;margin-bottom:6px}
+    select,input[type=number],input[type=range]{width:100%}
+    select,input[type=number]{background:#071713;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:11px;outline:none}
+    select:focus,input:focus{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(45,212,191,.12)}
+    .actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+    .btn{border:1px solid var(--line);background:#132e27;color:var(--text);border-radius:11px;padding:10px 14px;font-weight:850}
+    .btn:hover{transform:translateY(-1px)}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#05261e;border:0}.btn.danger{background:#3a1720;border-color:#6c2938}.btn.ghost{background:transparent}
+    .card-picker{display:grid;grid-template-columns:repeat(13,1fr);gap:4px;margin-top:10px}
+    .rank-btn{padding:8px 2px;border-radius:8px;border:1px solid var(--line);background:#0b1c17;color:#dcefe7;font-size:.78rem;font-weight:800}
+    .rank-btn.selected{background:var(--accent2);color:#05251d;border-color:transparent}
+    .cards-row{display:flex;flex-wrap:wrap;gap:8px;min-height:58px;align-items:center}
+    .playing-card{width:44px;height:58px;background:var(--card);color:var(--ink);border-radius:8px;padding:5px;display:flex;flex-direction:column;justify-content:space-between;font-weight:950;box-shadow:0 5px 14px rgba(0,0,0,.25);border:2px solid #dce3e8}
+    .playing-card.red{color:#dc2626}.playing-card small{text-align:right;font-size:1.05rem}
+    .empty-card{width:44px;height:58px;border:1px dashed #3b6659;border-radius:8px;display:grid;place-items:center;color:#668d80}
+    .deck{display:grid;grid-template-columns:repeat(13,1fr);gap:4px;margin-top:10px}
+    .deck-card{border:1px solid #d4dde2;background:#f8fafc;color:#111827;border-radius:7px;padding:7px 2px;font-size:.72rem;font-weight:900}.deck-card.red{color:#dc2626}.deck-card.used{opacity:.22;pointer-events:none}.deck-card.selected{outline:3px solid var(--accent2);transform:translateY(-2px)}
+    .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+    .metric{background:#071713;border:1px solid var(--line);border-radius:12px;padding:12px}.metric span{display:block;color:var(--muted);font-size:.75rem}.metric strong{display:block;margin-top:5px;font-size:1.16rem}
+    .result-box{background:#071713;border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:12px;line-height:1.65}
+    .result-good{border-color:#2f8e68}.result-warn{border-color:#9a7a22}.result-bad{border-color:#964050}
+    .strategy-table{width:100%;border-collapse:collapse;margin-top:12px}.strategy-table th,.strategy-table td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:.86rem}.strategy-table th{color:var(--muted)}
+    .bar{height:8px;background:#1e3f35;border-radius:999px;overflow:hidden;margin-top:5px}.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:inherit}
+    .range-grid{display:grid;grid-template-columns:repeat(13,1fr);gap:3px;overflow:auto}.range-cell{aspect-ratio:1;min-width:34px;border:1px solid rgba(255,255,255,.08);border-radius:5px;display:grid;place-items:center;font-size:.62rem;font-weight:850;background:#17241f;color:#9bb2aa}.range-cell.raise{background:#15805b;color:white}.range-cell.mixed{background:linear-gradient(135deg,#15805b 58%,#3f4b47 58%);color:white}.range-cell.fold{background:#232d29;color:#71827b}.range-cell.current{outline:3px solid var(--warn);z-index:2}
+    .quiz-card{background:radial-gradient(circle at 70% 15%,rgba(74,222,128,.18),transparent 35%),#071713;border:1px solid var(--line);border-radius:16px;padding:18px}.quiz-title{font-size:1.2rem;font-weight:900}.quiz-meta{color:var(--muted);margin:6px 0 16px}.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.action-btn{padding:14px 8px;border-radius:12px;border:1px solid var(--line);background:#123128;color:white;font-weight:900}.action-btn:hover{border-color:var(--accent)}
+    .history-list{display:grid;gap:9px}.history-item{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#071713;border:1px solid var(--line);border-radius:12px;padding:11px}.history-item small{color:var(--muted)}
+    .progress{height:12px;background:#18352d;border-radius:999px;overflow:hidden}.progress i{height:100%;display:block;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+    .notice{border-left:4px solid var(--warn);padding:10px 12px;background:rgba(251,191,36,.08);color:#f7e6a7;border-radius:8px;font-size:.84rem;line-height:1.6}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    footer{color:#78968b;text-align:center;padding:30px 0 0;font-size:.78rem}
+    @media(max-width:820px){.grid{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(2,1fr)}.metric-grid{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr 1fr}.deck{grid-template-columns:repeat(7,1fr)}.action-grid{grid-template-columns:1fr 1fr 1fr}.badge{display:none}}
+    @media(max-width:480px){.shell{padding:12px 10px 70px}.panel{padding:14px}.form-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:1fr 1fr}.range-cell{min-width:30px;font-size:.56rem}.action-grid{grid-template-columns:1fr}.deck{grid-template-columns:repeat(6,1fr)}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="logo">EV</div><div><h1>Hold'em Study Lab</h1><div class="subtitle">テキサスホールデム学習用・PC／スマホ対応</div></div></div>
+      <div class="badge">端末内で計算・履歴保存</div>
+    </header>
+
+    <nav class="tabs" aria-label="主要メニュー">
+      <button class="tab active" data-view="preflop">プリフロップ</button>
+      <button class="tab" data-view="postflop">ポストフロップ</button>
+      <button class="tab" data-view="quiz">問題演習</button>
+      <button class="tab" data-view="history">学習履歴</button>
+    </nav>
+
+    <main>
+      <section id="preflop" class="view active">
+        <div class="grid">
+          <div class="panel">
+            <h2>プリフロップ基準レンジ</h2>
+            <p class="hint">人数・ポジション・スタック・オープンサイズを選び、ハンドを入力すると、学習用の基準アクションを表示します。</p>
+            <div class="form-grid">
+              <div><label for="pfPlayers">テーブル人数</label><select id="pfPlayers"><option value="6">6MAX</option><option value="9">9MAX</option></select></div>
+              <div><label for="pfPosition">ポジション</label><select id="pfPosition"></select></div>
+              <div><label for="pfStack">有効スタック</label><select id="pfStack"><option value="20">20BB</option><option value="40">40BB</option><option value="60">60BB</option><option value="100" selected>100BB</option></select></div>
+              <div><label for="pfSize">オープンサイズ</label><select id="pfSize"><option value="2">2BB</option><option value="2.5" selected>2.5BB</option><option value="3">3BB</option></select></div>
+              <div><label for="pfHand">ハンド表記</label><select id="pfHand"></select></div>
+              <div><label for="pfScenario">場面</label><select id="pfScenario"><option value="rfi">全員フォールドで自分まで</option><option value="vsopen">前から1人オープン</option></select></div>
+            </div>
+            <div class="actions"><button class="btn primary" id="pfAnalyze">戦略を見る</button><button class="btn ghost" id="pfRandom">ランダムハンド</button></div>
+            <div id="pfResult" class="result-box" aria-live="polite">条件を選んで「戦略を見る」を押してください。</div>
+          </div>
+          <div class="panel">
+            <h2>13×13 レンジ表</h2>
+            <p class="hint">緑は積極参加、斜線はミックス、灰色はフォールド基準です。黄色枠が選択中のハンドです。</p>
+            <div id="rangeGrid" class="range-grid"></div>
+            <div class="notice" style="margin-top:14px">この初版のプリフロップ戦略は、一般的なキャッシュゲーム向けの学習基準です。厳密なGTO解ではなく、レーキや相手傾向で変化します。</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="postflop" class="view">
+        <div class="grid">
+          <div class="panel">
+            <h2>ポストフロップ EVラボ</h2>
+            <p class="hint">カードを選び、相手をランダムレンジと仮定してモンテカルロ計算します。ベットEVは、相手のフォールド率を含む簡易モデルです。</p>
+            <h3>自分のカード（2枚）</h3><div id="heroCards" class="cards-row"></div>
+            <h3 style="margin-top:14px">ボード（フロップ3枚、任意でターン・リバー）</h3><div id="boardCards" class="cards-row"></div>
+            <div id="deck" class="deck"></div>
+            <div class="actions"><button class="btn danger" id="clearCards">カードをクリア</button><button class="btn ghost" id="randomCards">ランダムに配る</button></div>
+          </div>
+          <div class="panel">
+            <h2>計算条件</h2>
+            <div class="form-grid">
+              <div><label for="streetPosition">自分の立場</label><select id="streetPosition"><option>BTN（インポジション）</option><option>BB（アウトポジション）</option><option>その他</option></select></div>
+              <div><label for="villainCount">相手人数</label><select id="villainCount"><option value="1">1人</option><option value="2">2人</option><option value="3">3人</option></select></div>
+              <div><label for="potSize">現在ポット（BB）</label><input id="potSize" type="number" min="0.5" step="0.5" value="5.5" /></div>
+              <div><label for="betSize">検討ベットサイズ</label><select id="betSize"><option value="25">25%</option><option value="33" selected>33%</option><option value="50">50%</option><option value="75">75%</option><option value="125">125%</option></select></div>
+              <div><label for="foldEquity">相手フォールド率：<span id="feLabel">35%</span></label><input id="foldEquity" type="range" min="0" max="90" value="35" /></div>
+              <div><label for="iterations">試行回数</label><select id="iterations"><option value="2000">高速 2,000回</option><option value="7000" selected>通常 7,000回</option><option value="20000">高精度 20,000回</option></select></div>
+            </div>
+            <div class="actions"><button class="btn primary" id="runEquity">勝率・EVを計算</button></div>
+            <div id="calcStatus" class="hint" style="margin-top:10px"></div>
+            <div id="equityMetrics" class="metric-grid">
+              <div class="metric"><span>エクイティ</span><strong>—</strong></div><div class="metric"><span>勝率</span><strong>—</strong></div><div class="metric"><span>引分率</span><strong>—</strong></div>
+            </div>
+            <div id="evResult" class="result-box">自分のカード2枚と、フロップ3枚以上を選択してください。</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="quiz" class="view">
+        <div class="grid">
+          <div class="panel">
+            <h2>プリフロップ問題演習</h2>
+            <p class="hint">現在の基準レンジから問題をランダム生成します。回答は端末内に保存されます。</p>
+            <div id="quizBox" class="quiz-card"></div>
+          </div>
+          <div class="panel">
+            <h2>現在の成績</h2>
+            <div class="metric-grid"><div class="metric"><span>回答数</span><strong id="quizCount">0</strong></div><div class="metric"><span>正解率</span><strong id="quizAccuracy">—</strong></div><div class="metric"><span>連続正解</span><strong id="quizStreak">0</strong></div></div>
+            <div class="progress"><i id="accuracyBar" style="width:0%"></i></div>
+            <div id="quizFeedback" class="result-box">回答すると、ここに解説が表示されます。</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="history" class="view">
+        <div class="grid">
+          <div class="panel">
+            <h2>学習履歴</h2><p class="hint">履歴はこのブラウザのlocalStorageに保存されています。</p>
+            <div id="historyList" class="history-list"></div>
+            <div class="actions"><button class="btn danger" id="clearHistory">履歴を削除</button><button class="btn ghost" id="exportHistory">JSONで書き出す</button></div>
+          </div>
+          <div class="panel">
+            <h2>この初版でできること</h2>
+            <table class="strategy-table"><tbody>
+              <tr><th>プリフロップ</th><td>6MAX／9MAX、各ポジション、20〜100BB、RFI・対オープン</td></tr>
+              <tr><th>ポストフロップ</th><td>1〜3人の相手に対する勝率・エクイティ計算</td></tr>
+              <tr><th>ベット</th><td>25／33／50／75／125%ポットの簡易EV比較</td></tr>
+              <tr><th>保存</th><td>問題演習の成績を端末内保存</td></tr>
+              <tr><th>共有</th><td>GitHub PagesのURLを友人に送れば利用可能</td></tr>
+            </tbody></table>
+            <div class="notice" style="margin-top:14px">オンラインポーカー中のリアルタイム補助ではなく、プレー後の復習・学習用途として利用してください。</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>Hold'em Study Lab v0.1 — 学習用の簡易モデル。金銭を賭ける判断を保証するものではありません。</footer>
+  </div>
+
+<script>
+'use strict';
+const ranks=['A','K','Q','J','T','9','8','7','6','5','4','3','2'];
+const suits=['s','h','d','c'];
+const suitSymbols={s:'♠',h:'♥',d:'♦',c:'♣'};
+const rankValue={2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,T:10,J:11,Q:12,K:13,A:14};
+const positions6=['UTG','HJ','CO','BTN','SB','BB'];
+const positions9=['UTG','UTG+1','MP','LJ','HJ','CO','BTN','SB','BB'];
+let selectedHero=[], selectedBoard=[];
+let quizState=null;
+const $=id=>document.getElementById(id);
+
+function allHands(){const out=[];for(let i=0;i<13;i++){for(let j=0;j<13;j++){if(i===j)out.push(ranks[i]+ranks[j]);else if(i<j)out.push(ranks[i]+ranks[j]+'s');else out.push(ranks[j]+ranks[i]+'o')}}return out}
+const hands169=allHands();
+
+function handStrength(hand){
+  const pair=hand.length===2, suited=hand.endsWith('s');
+  const r1=rankValue[hand[0]], r2=rankValue[hand[1]];
+  if(pair) return 45+r1*3.4;
+  const high=Math.max(r1,r2), low=Math.min(r1,r2), gap=high-low-1;
+  let score=high*3+low*1.25+(suited?7:0)-(Math.max(0,gap)*3.4);
+  if(high===14) score+=4;
+  if(high>=11&&low>=10) score+=6;
+  if(gap===0) score+=3;
+  if(low<=5&&high===14&&suited) score+=2;
+  return score;
+}
+function threshold(players,pos,stack,size,scenario){
+  const order=players===6?positions6:positions9; const idx=order.indexOf(pos);
+  let base=players===6?[74,68,61,51,57,64][Math.max(0,idx)]:[80,77,73,69,66,60,49,57,65][Math.max(0,idx)];
+  if(stack<=20) base-=3; else if(stack===40) base-=1;
+  if(size>=3) base+=2; else if(size===2) base-=1;
+  if(scenario==='vsopen') base+=14;
+  return base;
+}
+function classifyHand(hand,opts){
+  const score=handStrength(hand), th=threshold(opts.players,opts.pos,opts.stack,opts.size,opts.scenario);
+  const premium=score>=th+13;
+  if(score>=th+4) return {action:opts.scenario==='rfi'?'Raise':'3Bet',mix:100,score,th,tier:'raise',premium};
+  if(score>=th-2) return {action:opts.scenario==='rfi'?'Raise / Fold':'Call / 3Bet',mix:Math.round(45+(score-th)*8),score,th,tier:'mixed',premium};
+  if(opts.scenario==='vsopen'&&score>=th-7) return {action:'Call / Fold',mix:35,score,th,tier:'mixed',premium:false};
+  return {action:'Fold',mix:0,score,th,tier:'fold',premium:false};
+}
+function updatePositions(){const players=+$('pfPlayers').value, sel=$('pfPosition'), old=sel.value;sel.innerHTML='';(players===6?positions6:positions9).forEach(p=>sel.add(new Option(p,p)));if([...sel.options].some(o=>o.value===old))sel.value=old; else sel.value=players===6?'BTN':'BTN';renderRange()}
+function populateHands(){hands169.forEach(h=>$('pfHand').add(new Option(h,h)));$('pfHand').value='AKs'}
+function getPfOpts(){return {players:+$('pfPlayers').value,pos:$('pfPosition').value,stack:+$('pfStack').value,size:+$('pfSize').value,scenario:$('pfScenario').value}}
+function renderRange(){const grid=$('rangeGrid');grid.innerHTML='';const opts=getPfOpts(), current=$('pfHand').value;hands169.forEach(h=>{const c=document.createElement('div'),r=classifyHand(h,opts);c.className='range-cell '+r.tier+(h===current?' current':'');c.textContent=h;c.title=`${h}: ${r.action}`;c.onclick=()=>{$('pfHand').value=h;renderRange();analyzePf()};grid.appendChild(c)})}
+function analyzePf(){const hand=$('pfHand').value,opts=getPfOpts();if(opts.scenario==='rfi'&&opts.pos==='BB'){$('pfResult').className='result-box result-warn';$('pfResult').innerHTML='<strong>この場面では判断不要です。</strong><br>BBまで全員がフォールドした場合、通常はハンドが終了しています。BBを学ぶ場合は「前から1人オープン」を選んでください。';return}const r=classifyHand(hand,opts);let expl='';if(r.tier==='raise')expl=r.premium?'レンジ上位の強いハンドです。積極的なレイズ基準です。':'ポジションを考慮すると参加可能な強さです。';else if(r.tier==='mixed')expl='境界付近のハンドです。相手の傾向、レーキ、後ろの人数で頻度を調整します。';else expl='この条件では利益を出しにくく、フォールドが基準です。';$('pfResult').className='result-box '+(r.tier==='raise'?'result-good':r.tier==='mixed'?'result-warn':'result-bad');$('pfResult').innerHTML=`<strong>${hand}：${r.action}</strong><br>推奨参加頻度の目安：${r.tier==='raise'?'85〜100':r.tier==='mixed'?Math.max(15,Math.min(75,r.mix)):'0〜10'}%<br><span style="color:var(--muted)">${opts.players}MAX・${opts.pos}・${opts.stack}BB・${opts.size}BB／${opts.scenario==='rfi'?'RFI':'対オープン'}</span><br>${expl}`;renderRange()}
+
+function cardObj(code){return {r:code[0],s:code[1],v:rankValue[code[0]],code}}
+function renderPicked(){
+  const make=(code)=>{const c=cardObj(code);return `<div class="playing-card ${c.s==='h'||c.s==='d'?'red':''}"><span>${c.r}</span><small>${suitSymbols[c.s]}</small></div>`};
+  $('heroCards').innerHTML=selectedHero.map(make).join('')+Array(Math.max(0,2-selectedHero.length)).fill('<div class="empty-card">+</div>').join('');
+  $('boardCards').innerHTML=selectedBoard.map(make).join('')+Array(Math.max(0,5-selectedBoard.length)).fill('<div class="empty-card">+</div>').join('');renderDeck();
+}
+function renderDeck(){const d=$('deck');d.innerHTML='';for(const r of ranks){for(const s of suits){const code=r+s,b=document.createElement('button');b.className='deck-card '+((s==='h'||s==='d')?'red ':'')+((selectedHero.includes(code)||selectedBoard.includes(code))?'used':'');b.textContent=r+suitSymbols[s];b.onclick=()=>selectCard(code);d.appendChild(b)}}}
+function selectCard(code){if(selectedHero.includes(code)||selectedBoard.includes(code))return;if(selectedHero.length<2)selectedHero.push(code);else if(selectedBoard.length<5)selectedBoard.push(code);renderPicked()}
+function clearCards(){selectedHero=[];selectedBoard=[];renderPicked();$('evResult').textContent='自分のカード2枚と、フロップ3枚以上を選択してください.'}
+function shuffled(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function randomDeal(){const deck=shuffled(ranks.flatMap(r=>suits.map(s=>r+s)));selectedHero=deck.slice(0,2);selectedBoard=deck.slice(2,5);renderPicked()}
+
+function combinations(arr,k){const res=[];function rec(start,cur){if(cur.length===k){res.push(cur.slice());return}for(let i=start;i<=arr.length-(k-cur.length);i++){cur.push(arr[i]);rec(i+1,cur);cur.pop()}}rec(0,[]);return res}
+function evaluate5(cards){
+  const vals=cards.map(c=>c.v).sort((a,b)=>b-a), counts={};vals.forEach(v=>counts[v]=(counts[v]||0)+1);
+  const groups=Object.entries(counts).map(([v,c])=>({v:+v,c})).sort((a,b)=>b.c-a.c||b.v-a.v);
+  const flush=cards.every(c=>c.s===cards[0].s);let uniq=[...new Set(vals)];if(uniq[0]===14)uniq.push(1);let straightHigh=0;for(let i=0;i<=uniq.length-5;i++){if(uniq[i]-uniq[i+4]===4){straightHigh=uniq[i];break}}
+  const pack=(cat,t=[])=>([cat,...t,...Array(5).fill(0)].slice(0,6));
+  if(flush&&straightHigh)return pack(8,[straightHigh]);
+  if(groups[0].c===4)return pack(7,[groups[0].v,groups[1].v]);
+  if(groups[0].c===3&&groups[1].c===2)return pack(6,[groups[0].v,groups[1].v]);
+  if(flush)return pack(5,vals);
+  if(straightHigh)return pack(4,[straightHigh]);
+  if(groups[0].c===3)return pack(3,[groups[0].v,...groups.slice(1).map(g=>g.v).sort((a,b)=>b-a)]);
+  if(groups[0].c===2&&groups[1].c===2){const ps=[groups[0].v,groups[1].v].sort((a,b)=>b-a);return pack(2,[...ps,groups[2].v])}
+  if(groups[0].c===2)return pack(1,[groups[0].v,...groups.slice(1).map(g=>g.v).sort((a,b)=>b-a)]);
+  return pack(0,vals);
+}
+function evaluate7(codes){const cs=codes.map(cardObj);let best=null;for(const combo of combinations(cs,5)){const v=evaluate5(combo);if(!best||compareRank(v,best)>0)best=v}return best}
+function compareRank(a,b){for(let i=0;i<Math.max(a.length,b.length);i++){if((a[i]||0)!==(b[i]||0))return (a[i]||0)-(b[i]||0)}return 0}
+function handName(rank){return ['ハイカード','ワンペア','ツーペア','スリーカード','ストレート','フラッシュ','フルハウス','フォーカード','ストレートフラッシュ'][rank[0]]}
+function sleep(){return new Promise(r=>setTimeout(r,0))}
+async function monteCarlo(hero,board,villains,iters,onProgress){
+  const used=new Set([...hero,...board]),base=ranks.flatMap(r=>suits.map(s=>r+s)).filter(c=>!used.has(c));let wins=0,ties=0,losses=0;
+  const needBoard=5-board.length, batch=250;
+  for(let i=0;i<iters;i++){
+    const draw=shuffled(base), fullBoard=[...board,...draw.slice(0,needBoard)];let idx=needBoard;const heroRank=evaluate7([...hero,...fullBoard]);let beaten=false,tiedCount=0;
+    for(let v=0;v<villains;v++){const vr=evaluate7([draw[idx++],draw[idx++],...fullBoard]),cmp=compareRank(heroRank,vr);if(cmp<0){beaten=true;break}else if(cmp===0)tiedCount++}
+    if(beaten)losses++;else if(tiedCount>0)ties++;else wins++;
+    if(i%batch===0){onProgress(Math.round(i/iters*100));await sleep()}
+  }
+  return {wins,ties,losses,equity:(wins+ties/2)/iters,winRate:wins/iters,tieRate:ties/iters};
+}
+async function runEquity(){
+  if(selectedHero.length!==2||selectedBoard.length<3){$('evResult').className='result-box result-bad';$('evResult').textContent='自分のカード2枚と、フロップ3枚以上を選択してください。';return}
+  const btn=$('runEquity');btn.disabled=true;btn.textContent='計算中…';const iters=+$('iterations').value,villains=+$('villainCount').value;
+  try{const res=await monteCarlo(selectedHero,selectedBoard,villains,iters,p=>{$('calcStatus').textContent=`計算中 ${p}%`});const pot=+$('potSize').value||0,size=+$('betSize').value/100,bet=pot*size,fe=+$('foldEquity').value/100;
+    const checkEv=res.equity*pot;const calledEv=res.equity*(pot+2*bet)-bet;const betEv=fe*pot+(1-fe)*calledEv;const required=bet/(pot+2*bet);
+    const hand=evaluate7([...selectedHero,...selectedBoard,...ranks.flatMap(r=>suits.map(s=>r+s)).filter(c=>![...selectedHero,...selectedBoard].includes(c)).slice(0,Math.max(0,5-selectedBoard.length))]);
+    const m=$('equityMetrics').children;m[0].querySelector('strong').textContent=(res.equity*100).toFixed(1)+'%';m[1].querySelector('strong').textContent=(res.winRate*100).toFixed(1)+'%';m[2].querySelector('strong').textContent=(res.tieRate*100).toFixed(1)+'%';
+    const better=betEv>checkEv?'Bet '+$('betSize').value+'%':'Check';$('evResult').className='result-box '+(Math.max(checkEv,betEv)>=0?'result-good':'result-bad');$('evResult').innerHTML=`<strong>簡易推奨：${better}</strong><br>Check EV（ショーダウン近似）：${checkEv.toFixed(2)}BB<br>Bet ${$('betSize').value}% EV：${betEv.toFixed(2)}BB<br>コールされた場合のEV：${calledEv.toFixed(2)}BB<br>ベット額：${bet.toFixed(2)}BB／損益分岐エクイティ：${(required*100).toFixed(1)}%<br><span style="color:var(--muted)">前提：相手レンジはランダム、フォールド率${Math.round(fe*100)}%、今後の追加ベットなし。実戦のGTO EVとは異なる簡易比較です。</span>`;
+    $('calcStatus').textContent=`${iters.toLocaleString()}回の試行が完了しました。`;
+  }catch(e){$('evResult').textContent='計算に失敗しました: '+e.message}finally{btn.disabled=false;btn.textContent='勝率・EVを計算'}
+}
+
+function loadHistory(){try{return JSON.parse(localStorage.getItem('pokerStudyHistory')||'[]')}catch{return []}}
+function saveHistory(h){localStorage.setItem('pokerStudyHistory',JSON.stringify(h.slice(0,200)))}
+function newQuiz(){const players=Math.random()<.75?6:9,allPositions=players===6?positions6:positions9,stack=[20,40,60,100][Math.floor(Math.random()*4)],size=[2,2.5,3][Math.floor(Math.random()*3)],scenario=Math.random()<.75?'rfi':'vsopen',positions=scenario==='rfi'?allPositions.filter(p=>p!=='BB'):allPositions,pos=positions[Math.floor(Math.random()*positions.length)],hand=hands169[Math.floor(Math.random()*hands169.length)],res=classifyHand(hand,{players,pos,stack,size,scenario});quizState={players,pos,stack,size,scenario,hand,res};$('quizBox').innerHTML=`<div class="quiz-title">${hand} をどうプレーする？</div><div class="quiz-meta">${players}MAX・${pos}・${stack}BB・${size}BB／${scenario==='rfi'?'全員フォールドで自分まで':'前から1人オープン'}</div><div class="action-grid"><button class="action-btn" data-answer="aggressive">${scenario==='rfi'?'Raise':'3Bet'}</button><button class="action-btn" data-answer="passive">${scenario==='rfi'?'Call':'Call'}</button><button class="action-btn" data-answer="fold">Fold</button></div>`;document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>answerQuiz(b.dataset.answer))}
+function expectedBucket(r){return r.tier==='raise'?'aggressive':r.tier==='mixed'?(r.action.startsWith('Call')?'passive':'aggressive'):'fold'}
+function answerQuiz(answer){if(!quizState)return;const expected=expectedBucket(quizState.res),correct=answer===expected||quizState.res.tier==='mixed'&&(answer==='passive'||answer==='aggressive');const h=loadHistory(),streak=correct?((h[0]?.streak||0)+1):0;h.unshift({date:new Date().toISOString(),hand:quizState.hand,spot:`${quizState.players}MAX ${quizState.pos} ${quizState.stack}BB`,answer,correct,expected:quizState.res.action,streak});saveHistory(h);$('quizFeedback').className='result-box '+(correct?'result-good':'result-bad');$('quizFeedback').innerHTML=`<strong>${correct?'正解・許容範囲です':'基準から外れています'}</strong><br>基準アクション：${quizState.res.action}<br>${quizState.res.tier==='mixed'?'境界ハンドなので複数アクションが許容されます。':'この条件での基準レンジに沿った判定です。'}`;updateStats();renderHistory();setTimeout(newQuiz,500)}
+function updateStats(){const h=loadHistory(),correct=h.filter(x=>x.correct).length,acc=h.length?correct/h.length*100:0;$('quizCount').textContent=h.length;$('quizAccuracy').textContent=h.length?acc.toFixed(1)+'%':'—';$('quizStreak').textContent=h[0]?.streak||0;$('accuracyBar').style.width=acc+'%'}
+function renderHistory(){const h=loadHistory(),box=$('historyList');if(!h.length){box.innerHTML='<div class="result-box">まだ履歴がありません。問題演習を始めてください。</div>';return}box.innerHTML=h.slice(0,30).map(x=>`<div class="history-item"><div><strong>${x.hand} — ${x.expected}</strong><br><small>${x.spot}・${new Date(x.date).toLocaleString('ja-JP')}</small></div><div style="font-weight:900;color:${x.correct?'var(--accent)':'var(--bad)'}">${x.correct?'○':'×'}</div></div>`).join('')}
+function exportHistory(){const blob=new Blob([JSON.stringify(loadHistory(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='poker-study-history.json';a.click();URL.revokeObjectURL(a.href)}
+
+function init(){
+  document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));t.classList.add('active');$(t.dataset.view).classList.add('active')});
+  populateHands();updatePositions();renderPicked();newQuiz();updateStats();renderHistory();
+  ['pfPlayers','pfPosition','pfStack','pfSize','pfScenario','pfHand'].forEach(id=>$(id).addEventListener('change',()=>{if(id==='pfPlayers')updatePositions();else renderRange()}));
+  $('pfAnalyze').onclick=analyzePf;$('pfRandom').onclick=()=>{$('pfHand').value=hands169[Math.floor(Math.random()*hands169.length)];analyzePf()};$('clearCards').onclick=clearCards;$('randomCards').onclick=randomDeal;$('runEquity').onclick=runEquity;$('foldEquity').oninput=e=>$('feLabel').textContent=e.target.value+'%';$('clearHistory').onclick=()=>{if(confirm('学習履歴を削除しますか？')){saveHistory([]);updateStats();renderHistory()}};$('exportHistory').onclick=exportHistory;
+  if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+init();
+</script>
+</body>
+</html>
