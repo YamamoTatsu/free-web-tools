@@ -33,12 +33,23 @@ if(typeof document!=='undefined') {
       const data={width:form.elements.width.value,depth:form.elements.depth.value,height:form.elements.height.value,opening:form.elements.opening.value,walls:form.elements.walls.value,span:form.elements.span.checked};
       const rows=evaluate(data),count=rows.filter(r=>r.candidate).length;
       status.textContent=count+'商品が寸法上の一次候補です。設置できるという判定ではありません。';
-      for(const row of rows) {
+      for(const row of rows.slice().sort((a,b)=>Number(b.candidate)-Number(a.candidate))) {
         const card=document.createElement('article');card.className='result '+(row.candidate?'candidate':'excluded');card.dataset.product=row.id;card.dataset.candidate=String(row.candidate);
         const badge=document.createElement('p');badge.className='badge';badge.textContent=row.candidate?'寸法上の一次候補':'今回の前提では候補外';card.append(badge);
         const title=document.createElement('h3');title.textContent=row.name;card.append(title);
         const spec=document.createElement('p');spec.textContent='幅'+row.min+'〜'+row.max+' × 奥行'+row.depth+' × 高さ'+row.height+'cm';card.append(spec);
-        const ul=document.createElement('ul');for(const text of [...row.reasons,...row.notes]){const li=document.createElement('li');li.textContent=text;ul.append(li);}card.append(ul);results.append(card);
+        const ul=document.createElement('ul');for(const text of [...row.reasons,...row.notes]){const li=document.createElement('li');li.textContent=text;ul.append(li);}card.append(ul);
+        if(row.candidate) {
+          const comparison=document.querySelector('.next .cta');
+          if(comparison) {
+            const link=document.createElement('a');
+            link.className='cta';
+            link.href=comparison.href;
+            link.textContent=row.name+'の設置条件を比較記事で確認';
+            card.append(link);
+          }
+        }
+        results.append(card);
       }
     } catch(error) { status.textContent=error.message; }
   });
