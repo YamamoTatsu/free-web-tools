@@ -44,7 +44,10 @@ if(typeof document!=='undefined') {
           if(comparison) {
             const link=document.createElement('a');
             link.className='cta';
-            link.href=comparison.href;
+            // Preserve the comparison URL; identify which eligible product led to the visit.
+            const articleUrl=new URL(comparison.href);
+            articleUrl.searchParams.set('utm_content','diagnosis_'+row.id);
+            link.href=articleUrl.toString();
             link.textContent=row.name+'の設置条件を比較記事で確認';
             card.append(link);
           }
@@ -52,6 +55,8 @@ if(typeof document!=='undefined') {
         results.append(card);
       }
     } catch(error) { status.textContent=error.message; }
+    // Keep the outcome visible beneath the long form on narrow screens.
+    status.scrollIntoView({block:'start'});
   });
   document.querySelector('#example').addEventListener('click',()=>{form.elements.width.value='40';form.elements.depth.value='31';form.elements.height.value='35';form.elements.opening.value='40';form.elements.walls.value='unknown';form.elements.span.checked=true;form.requestSubmit();});
 }
