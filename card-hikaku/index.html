@@ -33,71 +33,108 @@ details{border-top:1px solid #e2e9ef;padding-top:9px;margin-top:10px}summary{fon
 footer{font-size:11px;color:#5f7286;padding:0 19px 24px}footer a{color:#295fae}
 .noscript{padding:12px;background:#fff1db;color:#67471c}
 @media(max-width:420px){.screen{padding:17px}.rank{padding:12px}.choices label{font-size:13px}.rank .name{font-size:14px}.rank .delta{font-size:20px}.rank-top{gap:5px}}
-</style>
+.promo{margin:0 0 18px;border:1px solid #d8e3ef;background:#f6faff;padding:14px;border-radius:13px}.insight{margin-top:17px;padding:13px;border-radius:12px;background:#f5f8fc;font-size:12px}.insight p{margin:4px 0 0;color:#5d7085}.rank.top{border-color:#27865e}input[type="checkbox"]{accent-color:#2861b6}</style>
 </head>
 <body>
-<header><div><span style="font-size:12px;color:#f8d288">6問で分かる・無料</span><h1>ゴールドカード比較診断</h1><p>すでに通常の楽天カードを持っている人向け。<br>楽天ゴールドとアメックス・ゴールド・プリファードを比較。</p></div></header>
+<header><div><span style="font-size:12px;color:#f8d288">12問で分かる・無料</span><h1>ゴールドカード比較診断</h1><p>すでに通常の楽天カードを持っている人向け。<br>楽天ゴールドとアメックス・ゴールド・プリファードを比較。</p></div></header>
 <main>
 <noscript><p class="noscript">この診断にはJavaScriptが必要です。SafariまたはChromeで開いてください。</p></noscript>
-<section class="screen" id="s0"><div class="eyebrow">質問 1 / 6</div><div class="progress"><b style="width:16.7%"></b></div><h2>新しいカードで年間いくら使う？</h2><p class="desc">NISA積立を除く、買い物・食事・ネット通販などの年間決済額です。</p><label class="field" for="annual">年間利用額</label><div class="number"><input id="annual" type="number" inputmode="numeric" min="0" value="1200000"><span>円 / 年</span></div><p class="small">例：60万円、120万円、240万円。概算でOKです。</p><div class="nav"><button class="primary" data-next="1">次へ進む →</button></div></section>
-<section class="screen" id="s1" hidden><div class="eyebrow">質問 2 / 6</div><div class="progress"><b style="width:33.3%"></b></div><h2>楽天証券のクレカ積立は月いくら？</h2><p class="desc">今の楽天カードで積み立てている毎月の金額。ポイント試算は月10万円まで。</p><label class="field" for="invest">毎月の積立額</label><div class="number"><input id="invest" type="number" inputmode="numeric" min="0" value="50000"><span>円 / 月</span></div><div class="nav"><button class="back" data-prev="0">戻る</button><button class="primary" data-next="2">次へ進む →</button></div></section>
-<section class="screen" id="s2" hidden><div class="eyebrow">質問 3 / 6</div><div class="progress"><b style="width:50%"></b></div><h2>積み立てている投資信託は？</h2><div class="choices"><label><input type="radio" name="fund" value="low" checked>低コスト投信</label><label><input type="radio" name="fund" value="high">その他の投信</label></div><p class="small">楽天証券の代行手数料が年0.4%未満かどうかで区分します。不明なら低コスト投信で仮計算。</p><div class="nav"><button class="back" data-prev="1">戻る</button><button class="primary" data-next="3">次へ進む →</button></div></section>
-<section class="screen" id="s3" hidden><div class="eyebrow">質問 4 / 6</div><div class="progress"><b style="width:66.7%"></b></div><h2>アメックス3倍対象店で月いくら使う？</h2><p class="desc">例：<b>Amazon・Yahoo!ショッピング・ヨドバシカメラ</b>（対象条件あり）。質問1の決済額に含まれる支出です。</p><label class="field" for="bonus">対象店での月間利用額</label><div class="number"><input id="bonus" type="number" inputmode="numeric" min="0" value="10000"><span>円 / 月</span></div><p class="small">3倍還元の追加分は、対象決済年50万円までを試算。</p><div class="nav"><button class="back" data-prev="2">戻る</button><button class="primary" data-next="4">次へ進む →</button></div></section>
-<section class="screen" id="s4" hidden><div class="eyebrow">質問 5 / 6</div><div class="progress"><b style="width:83.3%"></b></div><h2>旅行には年に何回行く？</h2><div class="choices"><label><input type="radio" name="travel" value="0">0回</label><label><input type="radio" name="travel" value="1" checked>年1〜2回</label><label><input type="radio" name="travel" value="3">年3〜5回</label><label><input type="radio" name="travel" value="6">年6回以上</label></div><p class="small">旅行回数自体に金銭価値は加算しません。ホテル特典を利用できるかの参考にします。</p><div class="nav"><button class="back" data-prev="3">戻る</button><button class="primary" data-next="5">次へ進む →</button></div></section>
-<section class="screen" id="s5" hidden><div class="eyebrow">質問 6 / 6</div><div class="progress"><b style="width:100%"></b></div><h2>飛行機には年に何回乗る？</h2><div class="choices"><label><input type="radio" name="flight" value="0" checked>0回</label><label><input type="radio" name="flight" value="1">年1〜2往復</label><label><input type="radio" name="flight" value="3">年3〜5往復</label><label><input type="radio" name="flight" value="6">年6往復以上</label></div><label style="display:flex;align-items:center;gap:8px;margin-top:17px;font-size:14px"><input type="checkbox" id="lounge">対象の空港ラウンジを利用する予定</label><p class="small">利用する場合のみ1回あたり1,000円相当で仮評価。楽天ゴールドは年2回まで。</p><div class="nav"><button class="back" data-prev="4">戻る</button><button class="primary" id="finish">診断結果を見る →</button></div></section>
-<section class="screen" id="s6" hidden><div class="row"><div class="eyebrow">診断結果</div><button class="back" style="min-height:34px;border:0;border-radius:9px" id="edit">回答を修正</button></div><h2>年会費込みの比較結果</h2><div class="period"><label><input type="radio" name="period" value="ongoing" checked>2年目以降</label><label><input type="radio" name="period" value="first">初年度</label></div><div class="hero"><div class="subtitle">あなたに最も有利な選択</div><h3 id="winner">計算中</h3><div class="delta" id="difference"></div><p>今の楽天カードとの年間差額</p></div><p class="eyebrow" style="margin-top:23px">年間メリットランキング</p><div class="rankings" id="ranking"></div><p class="input-summary" id="inputs"></p><p class="note" id="notes"></p><div class="nav"><button class="back" id="restart">最初に戻る</button><button class="primary" id="again">再計算する</button></div></section>
+<section class="screen" id="s0"><div class="eyebrow">質問 1 / 12</div><div class="progress"><b style="width:8.3%"></b></div><h2>新しいカードで年間いくら使う？</h2><p class="desc">NISA積立を除く、買い物・食事・ネット通販などの年間決済額です。</p><label class="field" for="annual">年間利用額</label><div class="number"><input id="annual" type="number" inputmode="numeric" min="0" value="1200000"><span>円 / 年</span></div><p class="small">例：60万円、120万円、240万円。概算でOKです。</p><div class="nav"><button class="primary" data-next="1">次へ進む →</button></div></section>
+<section class="screen" id="s1" hidden><div class="eyebrow">質問 2 / 12</div><div class="progress"><b style="width:16.7%"></b></div><h2>楽天証券のクレカ積立は月いくら？</h2><p class="desc">今の楽天カードで積み立てている毎月の金額。ポイント試算は月10万円まで。</p><label class="field" for="invest">毎月の積立額</label><div class="number"><input id="invest" type="number" inputmode="numeric" min="0" value="50000"><span>円 / 月</span></div><div class="nav"><button class="back" data-prev="0">戻る</button><button class="primary" data-next="2">次へ進む →</button></div></section>
+<section class="screen" id="s2" hidden><div class="eyebrow">質問 3 / 12</div><div class="progress"><b style="width:25%"></b></div><h2>積み立てている投資信託は？</h2><div class="choices"><label><input type="radio" name="fund" value="low" checked>低コスト投信</label><label><input type="radio" name="fund" value="high">その他の投信</label></div><p class="small">楽天証券の代行手数料が年0.4%未満かどうかで区分します。不明なら低コスト投信で仮計算。</p><div class="nav"><button class="back" data-prev="1">戻る</button><button class="primary" data-next="3">次へ進む →</button></div></section>
+<section class="screen" id="s3" hidden><div class="eyebrow">質問 4 / 12</div><div class="progress"><b style="width:33.3%"></b></div><h2>アメックス3倍対象店で月いくら使う？</h2><p class="desc">例：<b>Amazon・Yahoo!ショッピング・ヨドバシカメラ</b>（対象条件あり）。質問1の決済額に含まれる支出です。</p><label class="field" for="bonus">対象店での月間利用額</label><div class="number"><input id="bonus" type="number" inputmode="numeric" min="0" value="10000"><span>円 / 月</span></div><p class="small">3倍還元の追加分は、対象決済年50万円までを試算。</p><div class="nav"><button class="back" data-prev="2">戻る</button><button class="primary" data-next="4">次へ進む →</button></div></section>
+<section class="screen" id="s4" hidden><div class="eyebrow">質問 5 / 12</div><div class="progress"><b style="width:41.7%"></b></div><h2>旅行には年に何回行く？</h2><div class="choices"><label><input type="radio" name="travel" value="0">0回</label><label><input type="radio" name="travel" value="1" checked>年1〜2回</label><label><input type="radio" name="travel" value="3">年3〜5回</label><label><input type="radio" name="travel" value="6">年6回以上</label></div><p class="small">旅行回数自体に金銭価値は加算しません。ホテル特典を利用できるかの参考にします。</p><div class="nav"><button class="back" data-prev="3">戻る</button><button class="primary" data-next="5">次へ進む →</button></div></section>
+<section class="screen" id="s5" hidden><div class="eyebrow">質問 6 / 12</div><div class="progress"><b style="width:50%"></b></div><h2>飛行機には年に何回乗る？</h2><div class="choices"><label><input type="radio" name="flight" value="0" checked>0回</label><label><input type="radio" name="flight" value="1">年1〜2往復</label><label><input type="radio" name="flight" value="3">年3〜5往復</label><label><input type="radio" name="flight" value="6">年6往復以上</label></div><label style="display:flex;align-items:center;gap:8px;margin-top:17px;font-size:14px"><input type="checkbox" id="lounge">対象の空港ラウンジを利用する予定</label><p class="small">利用する場合のみ1回あたり1,000円相当で仮評価。楽天ゴールドは年2回まで。</p><div class="nav"><button class="back" data-prev="4">戻る</button><button class="primary" data-next="6">次へ進む →</button></div></section>
+<section class="screen" id="s6" hidden><div class="eyebrow">質問 7 / 12 ・アメックス特典編</div><div class="progress"><b style="width:58.3%"></b></div><h2>スターバックスに月いくら使う？</h2><p class="desc">スタバ公式アプリ・Webからの「スターバックス カード」オンライン入金で20%キャッシュバック（年間最大5,000円、半年最大2,500円）。</p><label class="field" for="starbucks">オンライン入金する金額</label><div class="number"><input type="number" inputmode="numeric" min="0" id="starbucks" value="0"><span>円 / 月</span></div><p class="small">店舗でのカード決済・Apple Pay支払いは特典対象外です。Amex Offers登録が必要。</p><div class="nav"><button class="back" data-prev="5">戻る</button><button class="primary" data-next="7">次へ進む →</button></div></section>
+<section class="screen" id="s7" hidden><div class="eyebrow">質問 8 / 12 ・アメックス特典編</div><div class="progress"><b style="width:66.7%"></b></div><h2>対象の高級レストランで年いくら使う？</h2><p class="desc">「ポケットコンシェルジュ」での予約・オンライン決済なら20%キャッシュバック。年間最大10,000円（半年ごと最大5,000円）。</p><label class="field" for="pocket">ポケットコンシェルジュでの年間決済予定額</label><div class="number"><input type="number" inputmode="numeric" min="0" id="pocket" value="0"><span>円 / 年</span></div><label style="display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px"><input type="checkbox" id="pocketBoth">上期・下期の両方で利用する予定</label><p class="small">対象予約サービス経由の事前決済・Amex Offers登録が必要です。通常の飲食店利用は対象外。</p><div class="nav"><button class="back" data-prev="6">戻る</button><button class="primary" data-next="8">次へ進む →</button></div></section>
+<section class="screen" id="s8" hidden><div class="eyebrow">質問 9 / 12 ・アメックス特典編</div><div class="progress"><b style="width:75%"></b></div><h2>2人でコース料理を食べる機会は？</h2><p class="desc">「ゴールド・ダイニング by 招待日和」は対象店の指定コースを大人2名以上で予約すると1名分無料。</p><div class="choices"><label><input type="radio" name="invite" value="0" checked>利用しない</label><label><input type="radio" name="invite" value="1">年1回</label><label><input type="radio" name="invite" value="2">年2回</label><label><input type="radio" name="invite" value="3">年3回以上</label></div><p class="small">対象店・指定コースを利用する場合のみ、1回あたり8,000円の割引価値を仮定。1店舗につき半年1回の制限あり。普通の食事には適用されません。</p><div class="nav"><button class="back" data-prev="7">戻る</button><button class="primary" data-next="9">次へ進む →</button></div></section>
+<section class="screen" id="s9" hidden><div class="eyebrow">質問 10 / 12 ・アメックス特典編</div><div class="progress"><b style="width:83.3%"></b></div><h2>ホテル予約で1万円クーポンを使えそう？</h2><p class="desc">継続特典の「トラベルクレジット」。アメックス・トラベル オンラインで、1回2万円以上のホテルを事前予約・事前決済する場合に使えます。</p><div class="choices"><label><input type="radio" name="travelCredit" value="0" checked>利用しない</label><label><input type="radio" name="travelCredit" value="1">利用する予定</label></div><p class="small">継続後のみ加算。ホテル無料宿泊券とは別の予約で利用する前提です。</p><div class="nav"><button class="back" data-prev="8">戻る</button><button class="primary" data-next="10">次へ進む →</button></div></section>
+<section class="screen" id="s10" hidden><div class="eyebrow">質問 11 / 12 ・アメックス特典編</div><div class="progress"><b style="width:91.7%"></b></div><h2>海外旅行時にプライオリティ・パスを使う？</h2><p class="desc">対象の空港ラウンジを年2回まで無料で使えます。通常のカードラウンジとは別のサービスです。</p><div class="choices"><label><input type="radio" name="priority" value="0" checked>利用しない</label><label><input type="radio" name="priority" value="1">年1回</label><label><input type="radio" name="priority" value="2">年2回以上</label></div><p class="small">実際に対象ラウンジを使う回数のみ1回3,000円で仮評価。日本国内の国内線ラウンジは対象外。一般カードラウンジとの二重計上を避けます。</p><div class="nav"><button class="back" data-prev="9">戻る</button><button class="primary" data-next="11">次へ進む →</button></div></section>
+<section class="screen" id="s11" hidden><div class="eyebrow">質問 12 / 12 ・アメックス特典編</div><div class="progress"><b style="width:100%"></b></div><h2>海外旅行でスーツケースの宅配を使う？</h2><p class="desc">対象空港と自宅の間で、海外旅行の出発・帰国時にスーツケース等1個を無料配送できます。</p><div class="choices"><label><input type="radio" name="luggage" value="0" checked>利用しない</label><label><input type="radio" name="luggage" value="1">年1回（片道）</label><label><input type="radio" name="luggage" value="2">年2回（往復）</label><label><input type="radio" name="luggage" value="4">年4回以上</label></div><p class="small">対象空港からの配送を実際に利用する場合のみ、1配送あたり2,000円相当で仮評価。</p><div class="nav"><button class="back" data-prev="10">戻る</button><button class="primary" data-next="12">診断結果を見る</button></div></section>
+<section class="screen" id="s12" hidden>
+<div class="row"><div class="eyebrow">診断結果 ・年会費込み</div><button class="back" style="min-height:34px;border:0;border-radius:9px" id="edit">回答を修正</button></div>
+<h2>どちらがお得？</h2>
+<div class="period"><label><input type="radio" name="period" value="ongoing" checked>2年目以降</label><label><input type="radio" name="period" value="first">初年度</label></div>
+<div class="promo" id="promoPanel" hidden><p style="font-weight:800;font-size:14px;margin:0 0 7px">入会後のボーナス条件は達成できそう？</p>
+<p class="small">2026年11月時点の公式特典：4ヶ月以内100万円利用で30,000pt／6ヶ月以内200万円利用で70,000pt。通常利用ポイントは別途計算済み。</p>
+<div class="choices"><label><input type="radio" name="promo" value="0" checked>達成しない・不明</label><label><input type="radio" name="promo" value="4">4ヶ月条件のみ</label><label><input type="radio" name="promo" value="6">6ヶ月条件のみ</label><label><input type="radio" name="promo" value="both">両方達成</label></div></div>
+<div class="hero"><div class="subtitle">計算上、最も有利な選択</div><h3 id="winner">計算中</h3><div class="delta" id="difference"></div><p>今の楽天カードとの年間差額（実際に使う特典の仮評価を含む）</p></div>
+<p class="eyebrow" style="margin-top:23px">年間メリットランキング</p><div class="rankings" id="ranking"></div>
+<p class="input-summary" id="inputs"></p>
+<div class="insight"><b>計算に入れなかった特典</b><p>旅行保険・スマートフォン補償・ホテル上級会員資格・メタルカードの所有感・マイル交換時の個別価値などは、金額に換算しにくいため別途判断してください。</p></div>
+<p class="note" id="notes"></p><div class="nav"><button class="back" id="restart">最初に戻る</button><button class="primary" id="again">再計算</button></div></section>
 </main>
-<footer>年会費：楽天ゴールド2,200円、アメックス・ゴールド・プリファード39,600円。通常決済は両カード1%相当で概算（アメックスには対象外・還元率が異なる利用先あり）。アメックスのポイントは1pt＝1円相当で評価し、マイル価値や入会特典は未計上。ホテル特典はアメックスで年間200万円以上決済し継続・特典を実際に使う条件に限り、平日2名1泊を3万円と<b>仮定</b>（実測平均ではありません）。対象店3倍還元は登録・利用条件、年上限に注意。制度や条件は変更される場合があります。<br><br>公式：<a href="https://www.rakuten-sec.co.jp/web/rfund/guide/creditcard/list.html" target="_blank" rel="noopener">楽天証券クレカ積立</a>／<a href="https://www.americanexpress.com/ja-jp/credit-cards/gold-preferred-card/" target="_blank" rel="noopener">アメックス公式</a>／<a href="https://www.americanexpress.com/ja-jp/point/membership-rewards-plus/index.html/" target="_blank" rel="noopener">3倍ポイント</a>。<br>このツールは端末内で計算し、入力内容を送信・保存しません。</footer>
-<script>
-(function(){
+<footer>年会費：楽天ゴールド2,200円、アメックス・ゴールド・プリファード39,600円。通常決済は両カード1%相当で概算（アメックスには対象外・還元率が異なる利用先あり）。アメックスのポイントは1pt＝1円相当で評価し、マイル価値や入会特典は未計上。ホテル特典はアメックスで年間200万円以上決済し継続・特典を実際に使う条件に限り、平日2名1泊を3万円と<b>仮定</b>（実測平均ではありません）。スタバ・ポケットコンシェルジュは事前登録と半期別上限あり。招待日和の1回8,000円、プライオリティ・パスの1回3,000円、荷物配送の1件2,000円は試算用仮定です。使う予定のない特典は0円で計算してください。実際の割引・利用条件や特典内容は変更される場合があります。<br><br>公式：<a href="https://www.rakuten-sec.co.jp/web/rfund/guide/creditcard/list.html" target="_blank" rel="noopener">楽天証券クレカ積立</a>／<a href="https://www.americanexpress.com/ja-jp/credit-cards/gold-preferred-card/" target="_blank" rel="noopener">アメックス公式</a>／<a href="https://www.americanexpress.com/ja-jp/point/membership-rewards-plus/index.html/" target="_blank" rel="noopener">3倍ポイント</a>。<br>このツールは端末内で計算し、入力内容を送信・保存しません。</footer>
+<script>(function(){
 'use strict';
-function byId(id){return document.getElementById(id)}
-function num(id){var n=Number(byId(id).value);return Number.isFinite(n)?Math.max(0,n):0}
-function selected(name){var el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:'0'}
-function money(n){return Math.round(n).toLocaleString('ja-JP')+'円'}
-function diff(n){return (n>0?'+':n<0?'−':'±')+money(Math.abs(n))}
-function show(idx){for(var i=0;i<=6;i++){byId('s'+i).hidden=i!==idx}window.scrollTo(0,0)}
+function el(s){return document.getElementById(s)}
+function num(id){var v=Number(el(id).value);return Number.isFinite(v)?Math.max(v,0):0}
+function checked(name){var i=document.querySelector('input[name="'+name+'"]:checked');return i?i.value:'0'}
+function yen(n){return Math.round(n).toLocaleString('ja-JP')+'円'}
+function sign(n){return (n>0?'+':n<0?'−':'±')+yen(Math.abs(n))}
+function show(i){for(var n=0;n<=12;n++){el('s'+n).hidden=n!==i}window.scrollTo(0,0)}
 function result(){
- var annual=num('annual'),monthly=Math.min(num('invest'),100000),low=selected('fund')==='low',three=Math.min(annual,num('bonus')*12,500000),travel=Number(selected('travel')),flight=Number(selected('flight')),usesLounge=byId('lounge').checked,ongoing=selected('period')==='ongoing';
- var normal=annual*.01,standardNisa=monthly*12*(low?.005:.01),goldNisa=monthly*12*(low?.0075:.01),bonus=three*.02,visits=usesLounge?flight:0,hotel=(ongoing&&annual>=2000000&&travel>0)?30000:0;
- var cards=[
-  {name:'今の楽天カードを継続',normal:normal,nisa:standardNisa,bonus:0,lounge:0,hotel:0,fee:0},
-  {name:'楽天ゴールドカード',normal:normal,nisa:goldNisa,bonus:0,lounge:Math.min(visits,2)*1000,hotel:0,fee:2200},
-  {name:'楽天カード＋アメックス',normal:normal,nisa:standardNisa,bonus:bonus,lounge:visits*1000,hotel:hotel,fee:39600}
- ];
- cards.forEach(function(c){c.total=c.normal+c.nisa+c.bonus+c.lounge+c.hotel-c.fee});
- var baseline=cards[0].total;
- cards.sort(function(a,b){return b.total-a.total});
- var top=cards[0];
- byId('winner').textContent=top.name;
- byId('difference').textContent=top.total===baseline?'±0円':diff(top.total-baseline)+' / 年';
- function item(title,value){return '<p><span>'+title+'</span><strong>'+value+'</strong></p>'}
- byId('ranking').innerHTML=cards.map(function(c,i){
-  var gap=c.total-baseline;
-  var parts=item('通常決済ポイント',money(c.normal))+item('楽天証券積立',money(c.nisa))+item('3倍対象店の追加ポイント',money(c.bonus))+item('空港ラウンジ価値（仮）',money(c.lounge))+item('ホテル無料宿泊価値（仮）',money(c.hotel))+item('年会費','−'+money(c.fee))+item('年会費差引後',money(c.total));
-  return '<article class="rank '+(i===0?'top':'')+'"><div class="rank-top"><div><div class="position">'+(i+1)+'位'+(i===0?'・おすすめ':'')+'</div><div class="name">'+c.name+'</div></div><div style="text-align:right"><div class="delta '+(gap>0?'positive':gap<0?'negative':'')+'">'+diff(gap)+'</div><div class="muted">今の楽天カード比／年</div></div></div><div class="rank-sub"><span>年会費 <b>'+money(c.fee)+'</b></span><span>年間メリット <b>'+money(c.total)+'</b></span></div><details><summary>ポイント・特典・年会費の内訳を見る</summary><div class="ledger">'+parts+'</div></details></article>'
- }).join('');
- byId('inputs').textContent='年間決済 '+money(annual)+'（NISA除く）／ 楽天証券積立 月'+money(num('invest'))+'／ 3倍対象店 月'+money(num('bonus'));
- var notes=[];
- if(!ongoing)notes.push('初年度はホテル無料宿泊を計上していません。');
- else if(annual<2000000)notes.push('年間200万円未満のため無料宿泊は計上していません。');
- else if(travel===0)notes.push('旅行予定がないため無料宿泊は計上していません。');
- else notes.push('ホテル宿泊は平日2名1泊3万円相当の仮定であり、対象ホテルの平均実測値ではありません。');
- if(num('bonus')*12>500000)notes.push('3倍対象店の追加還元は年50万円利用分まで。');
- if(num('bonus')*12>annual)notes.push('3倍対象店の利用額を年間カード利用額以下に補正。');
- if(num('invest')>100000)notes.push('積立額は月10万円で試算を上限化。');
- notes.push('アメックスのポイントは1pt＝1円相当。マイル価値・入会キャンペーン・利用対象外の差は未反映。');
- byId('notes').textContent=notes.join(' ');
+var annual=num('annual'),invest=Math.min(100000,num('invest')),bonusEligible=Math.min(annual,num('bonus')*12,500000);
+var travel=+checked('travel'),flights=+checked('flight'),isFirst=checked('period')==='first';
+var standardNisa=invest*12*(checked('fund')==='low'?.005:.01),goldNisa=invest*12*(checked('fund')==='low'?.0075:.01);
+var pp=Math.min(+checked('priority'),2,flights>0?2:0),loungeVisits=el('lounge').checked?Math.max(0,flights-pp):0;
+var starbucks=Math.min(num('starbucks')*12*.2,5000);
+var pocketAmount=num('pocket'),pocket=Math.min(pocketAmount*.2,el('pocketBoth').checked?10000:5000);
+var invited=Math.min(+checked('invite'),3)*8000;
+var credit=!isFirst&&checked('travelCredit')==='1'&&travel>0?10000:0;
+var hotel=!isFirst&&annual>=2000000&&travel>0?30000:0;
+var ppValue=pp*3000;
+var luggage=flights>0?Math.min(+checked('luggage'),4)*2000:0;
+var promo=checked('promo'),promoPoints=0;
+if(isFirst){
+ if((promo==='4'||promo==='both')&&annual>=1000000)promoPoints+=30000;
+ if((promo==='6'||promo==='both')&&annual>=2000000)promoPoints+=70000;
 }
-document.querySelectorAll('[data-next]').forEach(function(b){b.addEventListener('click',function(){show(Number(b.getAttribute('data-next')))})});
-document.querySelectorAll('[data-prev]').forEach(function(b){b.addEventListener('click',function(){show(Number(b.getAttribute('data-prev')))})});
-byId('finish').addEventListener('click',function(){result();show(6)});
-document.querySelectorAll('input[name="period"]').forEach(function(n){n.addEventListener('change',result)});
-byId('edit').addEventListener('click',function(){show(0)});
-byId('restart').addEventListener('click',function(){show(0)});
-byId('again').addEventListener('click',result);
+var normal=annual*.01;
+var cards=[
+{name:'今の楽天カードを継続',normal:normal,nisa:standardNisa,extra:[],fee:0},
+{name:'楽天ゴールドカード',normal:normal,nisa:goldNisa,extra:[['カードラウンジ',Math.min(el('lounge').checked?flights:0,2)*1000]],fee:2200},
+{name:'楽天カード＋アメックス',normal:normal,nisa:standardNisa,extra:[
+['3倍対象店の追加ポイント',bonusEligible*.02],
+['スターバックス還元',starbucks],
+['ポケットコンシェルジュ還元',pocket],
+['招待日和のコース割引（仮）',invited],
+['トラベルクレジット',credit],
+['ホテル無料宿泊（仮）',hotel],
+['一般カードラウンジ（仮）',loungeVisits*1000],
+['プライオリティ・パス（仮）',ppValue],
+['手荷物無料宅配（仮）',luggage],
+['入会ボーナスポイント',promoPoints]
+],fee:39600}
+];
+cards.forEach(function(c){c.total=c.normal+c.nisa+c.extra.reduce(function(t,a){return t+a[1]},0)-c.fee});
+var baseline=cards[0].total;cards.sort(function(a,b){return b.total-a.total});
+el('winner').textContent=cards[0].name;
+el('difference').textContent=sign(cards[0].total-baseline)+' / 年';
+function ledger(label,value){return '<p><span>'+label+'</span><strong>'+value+'</strong></p>'}
+el('ranking').innerHTML=cards.map(function(c,i){var d=c.total-baseline;
+var parts=ledger('通常のカード決済ポイント',yen(c.normal))+ledger('楽天証券積立ポイント',yen(c.nisa))+c.extra.filter(function(x){return x[1]>0}).map(function(x){return ledger(x[0],yen(x[1]))}).join('')+ledger('年会費','−'+yen(c.fee))+ledger('年会費差引後の年間価値',yen(c.total));
+return '<article class="rank '+(i===0?'top':'')+'"><div class="rank-top"><div><div class="position">'+(i+1)+'位'+(i===0?'・おすすめ':'')+'</div><div class="name">'+c.name+'</div></div><div style="text-align:right"><div class="delta '+(d>0?'positive':d<0?'negative':'')+'">'+sign(d)+'</div><div class="muted">現在の楽天カード比／年</div></div></div><div class="rank-sub"><span>年会費 <b>'+yen(c.fee)+'</b></span><span>年会費差引後 <b>'+yen(c.total)+'</b></span></div><details '+(i===0?'open':'')+'><summary>ポイント・特典の内訳</summary><div class="ledger">'+parts+'</div></details></article>'
+}).join('');
+el('promoPanel').hidden=!isFirst;
+el('inputs').textContent='年間カード決済 '+yen(annual)+'（NISA除く） ／ 楽天証券積立 月'+yen(num('invest'))+' ／ 3倍対象店 月'+yen(num('bonus'));
+var notes=[];
+if(isFirst)notes.push('初年度は無料宿泊券・継続トラベルクレジットを0円とし、条件達成を選んだ入会ボーナスだけ加算します。');
+if(annual<2000000)notes.push('年間カード決済が200万円に満たないため、無料宿泊は計上しません。');
+if(!isFirst&&annual>=2000000&&travel>0)notes.push('無料宿泊は平日2名1泊3万円の仮定で、利用を前提に加算しています。');
+if(num('bonus')*12>annual)notes.push('3倍対象店利用額を年間決済以下に補正。');
+if(num('invest')>100000)notes.push('楽天証券積立額は月10万円を上限に補正。');
+if(isFirst&&promoPoints===0&&promo!=='0')notes.push('年決済金額が選択した入会条件の金額に届かないためボーナスは未計上です。');
+notes.push('アメックスの付帯保険、ホテル会員資格、独自のマイル価値は金銭評価していません。各特典を実際に利用する場合のみ選択してください。');
+el('notes').textContent=notes.join(' ');
+}
+document.querySelectorAll('[data-next]').forEach(function(b){b.addEventListener('click',function(){var n=+b.getAttribute('data-next');if(n===12){result()}show(n)})});
+document.querySelectorAll('[data-prev]').forEach(function(b){b.addEventListener('click',function(){show(+b.getAttribute('data-prev'))})});
+document.querySelectorAll('input[name="period"],input[name="promo"]').forEach(function(n){n.addEventListener('change',result)});
+el('edit').addEventListener('click',function(){show(0)});
+el('restart').addEventListener('click',function(){show(0)});
+el('again').addEventListener('click',result);
 result();
-})();
-</script>
+})();</script>
 </body>
 </html>
