@@ -145,7 +145,7 @@ function calculate(){
   if(w-p.width>=0&&w-p.width<0.5)notes.push("幅の余裕は0.5cm未満。実寸・出し入れ経路を再確認");
   if(d-p.depth>=0&&d-p.depth<0.5)notes.push("奥行の余裕は0.5cm未満。ホースや奥の壁を再確認");
   if(h-p.height>=0&&h-p.height<0.5)notes.push("高さの余裕は0.5cm未満。上部との干渉を再確認");
-  if(obstacle==="blocked")notes.push("配管やホースとの干渉あり。測定値に反映していても設置可否は要確認");
+  if(obstacle==="blocked")misses.push("ホース・配管との干渉が確認されています。寸法が足りても購入前に配置を見直してください");
   if(obstacle==="unknown")notes.push("配管・ホース・防水パンなどの干渉が未確認");
   notes.push("床面、前方へ引き出す空間、洗濯機の振動は別途確認");
   return {item:p,misses:misses,notes:notes,fit:misses.length===0};
