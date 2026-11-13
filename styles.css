@@ -207,6 +207,20 @@ h1 {
   font-weight: 650;
 }
 
+.storage-discovery {
+  max-width: 690px;
+  margin: 20px auto 0;
+  padding: 13px 15px;
+  border: 1px solid #d8e6de;
+  border-radius: 12px;
+  background: #f2f8f4;
+  color: #235741;
+  font-size: 0.95rem;
+  font-weight: 650;
+  text-align: left;
+}
+.storage-discovery a { font-weight: 800; }
+
 .tool-section {
   padding: 30px 0 72px;
   background: linear-gradient(to bottom, var(--color-surface) 0, var(--color-surface) 120px, var(--color-bg) 120px);
