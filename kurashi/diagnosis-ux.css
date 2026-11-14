@@ -1,0 +1,11 @@
+/* Shared form usability; no product rules or tracking changes. */
+.start-action{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border-radius:10px;background:#176552;color:#fff;text-decoration:none;font-weight:750;margin:8px 0}
+.start-action:focus-visible{outline:3px solid #d28c43;outline-offset:3px}
+#fit-form{scroll-margin-top:24px}
+#status{scroll-margin-top:24px}
+#status:focus{outline:2px solid #176552;outline-offset:5px;border-radius:4px}
+.field-error{display:block;color:#a22525;font-size:14px;line-height:1.6;margin-top:6px;font-weight:700}
+.field-error[hidden]{display:none}
+input[aria-invalid="true"]{border:2px solid #a22525;background:#fff8f6}
+header,header .site{flex-wrap:wrap}
+@media(max-width:540px){.start-action{display:flex;width:100%}}
