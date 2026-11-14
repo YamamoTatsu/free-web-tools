@@ -68,10 +68,11 @@ footer .site{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
 @media(max-width:700px){.grid{grid-template-columns:1fr}.site{padding:0 14px}.hero{padding:26px 19px}.panel{padding:22px 17px}.controls button{width:100%}.lead{font-size:16px}}
 </style>
 <script src="../visit-analytics.js" defer></script>
-<link rel="stylesheet" href="../diagnosis-ux.css?v=20261114"><script src="../diagnosis-ux.js?v=20261114" defer></script></head>
+<link rel="stylesheet" href="../diagnosis-ux.css?v=20261114-a11y2"><script src="../diagnosis-ux.js?v=20261114-a11y2" defer></script></head>
 <body>
+<a class="skip-link" href="#main-content">本文へスキップ</a>
 <header><div class="site"><a href="https://kurashi-sunpo.hatenablog.com/">暮らしの寸法メモ</a><nav><a href="../">収納診断一覧</a>　<a href="../../">その他の無料ツール</a></nav></div></header>
-<main class="site">
+<main id="main-content" class="site" tabindex="-1">
 <section class="hero" aria-labelledby="main-heading">
 <p class="eyebrow">洗濯機横の隙間収納｜無料・登録不要</p>
 <h1 id="main-heading">その12.5cmのワゴン、<br>高さまで入りますか？</h1>
@@ -83,6 +84,7 @@ footer .site{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
 <section class="panel" aria-labelledby="form-heading">
 <h2 id="form-heading">使えるスペースを測って入力</h2>
 <p class="help">「壁から洗濯機まで15cm」でも、ホースや防水パンの張り出しで実際の有効幅は小さい場合があります。下の数値は障害物を除いた有効寸法です。</p>
+<noscript><p class="notice">JavaScriptが無効なため診断計算はできません。下の公式寸法表と比較記事をご利用ください。</p></noscript>
 <form id="fit-form" novalidate>
 <div class="grid">
 <label for="gap">有効幅（cm）<input id="gap" name="gap" type="number" inputmode="decimal" step="any" min="0.1" max="500" required placeholder="例：13.0"></label>
@@ -93,13 +95,13 @@ footer .site{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
 <div class="controls"><button class="primary" type="submit">2モデルの候補を確認</button><button class="secondary" id="example" type="button">入力例で試す（13×46×87cm）</button></div>
 </form>
 <p id="status" role="status" aria-live="polite"></p>
-<div id="results" aria-label="寸法比較の結果"></div>
+<div id="results" role="region" aria-label="ワゴンの寸法診断結果"></div>
 </section>
 <section class="panel" aria-labelledby="buy-heading">
 <h2 id="buy-heading">なぜ「高さ」が重要なのか</h2>
-<div class="compare"><table><thead><tr><th>商品</th><th>幅×奥行×高さ</th><th>特徴</th></tr></thead><tbody>
-<tr><td>F2540</td><td>12.5×45×85.3cm</td><td>木目調の天板付き・4段</td></tr>
-<tr><td>F2545</td><td>12.5×45×88.5cm</td><td>最上段もオープンの4段</td></tr>
+<p class="table-hint" id="wagon-table-help">表が画面に収まらない場合は左右にスクロールできます。キーボードでは表を選び、左右の矢印キーで移動できます。</p><div class="compare" role="region" aria-label="F2540とF2545の公式寸法表" aria-describedby="wagon-table-help" tabindex="0"><table><caption>ワゴン2モデルの公表寸法と特徴</caption><thead><tr><th scope="col">商品</th><th scope="col">幅×奥行×高さ</th><th scope="col">特徴</th></tr></thead><tbody>
+<tr><th scope="row">F2540</th><td>12.5×45×85.3cm</td><td>木目調の天板付き・4段</td></tr>
+<tr><th scope="row">F2545</th><td>12.5×45×88.5cm</td><td>最上段もオープンの4段</td></tr>
 </tbody></table></div>
 <p>どちらも幅12.5cmですが、F2545はF2540より<strong>3.2cm高い</strong>モデルです。「幅が入る＝高さも入る」ではありません。引き出すときの手前の空間も確保してください。</p>
 <a class="cta" href="https://kurashi-sunpo.hatenablog.com/entry/smartwagon-f2540-f2545?utm_source=free_web_tools&amp;utm_medium=tool&amp;utm_campaign=smartwagon_fit_v1&amp;utm_content=pre_compare">F2540とF2545の違い・購入前の比較を見る</a>

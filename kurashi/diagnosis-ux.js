@@ -47,7 +47,7 @@
     if (firstInvalid) {
       event.preventDefault(); event.stopImmediatePropagation();
       results.replaceChildren();
-      status.textContent = '入力を確認してください。赤字の項目を直してから再判定できます。';
+      status.textContent = '入力を確認してください。エラーのある項目を直してから再判定できます。';
       firstInvalid.focus();
     }
   }, true);
