@@ -21,7 +21,9 @@ function evaluate(input) {
     if(!input.span&&!p.wall&&n.width>p.max) notes.push('最大幅まで広げても空間全体は覆えません');
     if(n.width===p.min||n.depth===p.depth||n.height===p.height||n.opening===p.min) notes.push('公表寸法と測定値が同じ箇所あり。取付・出し入れの余裕は未確認');
     notes.push('配管・止水栓・支持方法・扉の干渉は別途確認');
-    return {...p,candidate:reasons.length===0,reasons,notes};
+    const candidate=reasons.length===0;
+    const needsSupportCheck=candidate&&p.wall&&input.walls==='unknown';
+    return {...p,candidate,needsSupportCheck,reasons,notes};
   });
 }
 if(typeof module!=='undefined') module.exports={evaluate,PRODUCTS};
@@ -31,11 +33,13 @@ if(typeof document!=='undefined') {
     event.preventDefault();results.replaceChildren();status.textContent='';
     try {
       const data={width:form.elements.width.value,depth:form.elements.depth.value,height:form.elements.height.value,opening:form.elements.opening.value,walls:form.elements.walls.value,span:form.elements.span.checked};
-      const rows=evaluate(data),count=rows.filter(r=>r.candidate).length;
-      status.textContent=count+'商品が寸法上の一次候補です。設置できるという判定ではありません。';
-      for(const row of rows.slice().sort((a,b)=>Number(b.candidate)-Number(a.candidate))) {
-        const card=document.createElement('article');card.className='result '+(row.candidate?'candidate':'excluded');card.dataset.product=row.id;card.dataset.candidate=String(row.candidate);
-        const badge=document.createElement('p');badge.className='badge';badge.textContent=row.candidate?'寸法上の一次候補':'今回の前提では候補外';card.append(badge);
+      const rows=evaluate(data),count=rows.filter(r=>r.candidate&&!r.needsSupportCheck).length;
+      const pending=rows.filter(r=>r.needsSupportCheck).length;
+      status.textContent=count+'商品が寸法上の一次候補です。'+(pending?'ほか'+pending+'商品は両側壁付けの確認待ちです。':'')+'設置できるという判定ではありません。';
+      const order=row=>row.candidate?(row.needsSupportCheck?1:2):0;
+      for(const row of rows.slice().sort((a,b)=>order(b)-order(a))) {
+        const card=document.createElement('article');card.className='result '+(row.needsSupportCheck?'confirmation':row.candidate?'candidate':'excluded');card.dataset.product=row.id;card.dataset.candidate=String(row.candidate);card.dataset.supportCheck=String(row.needsSupportCheck);
+        const badge=document.createElement('p');badge.className='badge';badge.textContent=row.needsSupportCheck?'寸法は範囲内・両側壁付けの確認待ち':row.candidate?'寸法上の一次候補':'今回の前提では候補外';card.append(badge);
         const title=document.createElement('h3');title.textContent=row.name;card.append(title);
         const spec=document.createElement('p');spec.textContent='幅'+row.min+'〜'+row.max+' × 奥行'+row.depth+' × 高さ'+row.height+'cm';card.append(spec);
         const ul=document.createElement('ul');for(const text of [...row.reasons,...row.notes]){const li=document.createElement('li');li.textContent=text;ul.append(li);}card.append(ul);
@@ -48,7 +52,7 @@ if(typeof document!=='undefined') {
             const articleUrl=new URL(comparison.href);
             articleUrl.searchParams.set('utm_content','diagnosis_'+row.id);
             link.href=articleUrl.toString();
-            link.textContent=row.name+'の設置条件を比較記事で確認';
+            link.textContent=row.name+(row.needsSupportCheck?'の両側壁付け条件を先に確認':'の設置条件を比較記事で確認');
             card.append(link);
           }
         }
