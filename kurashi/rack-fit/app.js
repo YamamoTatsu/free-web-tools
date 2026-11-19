@@ -4,6 +4,11 @@ const PRODUCTS = Object.freeze([
   {id:'hb6049',name:'パール金属 HB-6049',min:36,max:53,depth:30,height:29.5,wall:false},
   {id:'ssrex',name:'Belca SSR-EX',min:50,max:75,depth:30.3,height:30.7,wall:false}
 ]);
+// Product URLs supplied by the site owner. Do not add an unverified product URL.
+const AFFILIATE_LINKS = Object.freeze({
+  nitori: 'https://a.r10.to/hPTehj',
+  hb6049: 'https://a.r10.to/hgsC5B'
+});
 function evaluate(input) {
   const keys=['width','depth','height','opening'];
   if(keys.some(k=>input[k]===''||input[k]===null||!Number.isFinite(Number(input[k]))||Number(input[k])<=0||Number(input[k])>1000)) throw new Error('幅・奥行・高さ・入口幅に、0より大きい1000以下の数値をcmで入力してください。');
@@ -44,6 +49,22 @@ if(typeof document!=='undefined') {
         const spec=document.createElement('p');spec.textContent='幅'+row.min+'〜'+row.max+' × 奥行'+row.depth+' × 高さ'+row.height+'cm';card.append(spec);
         const ul=document.createElement('ul');for(const text of [...row.reasons,...row.notes]){const li=document.createElement('li');li.textContent=text;ul.append(li);}card.append(ul);
         if(row.candidate) {
+          // Show a shop link only for a dimensional candidate with support checks cleared.
+          // An unchecked wall-fixing condition is not a purchase-ready recommendation.
+          if(!row.needsSupportCheck && AFFILIATE_LINKS[row.id]) {
+            const affiliate=document.createElement('a');
+            affiliate.href=AFFILIATE_LINKS[row.id];
+            affiliate.target='_blank';
+            affiliate.rel='nofollow sponsored noopener noreferrer';
+            affiliate.className='affiliate-action';
+            affiliate.dataset.affiliateProduct=row.id;
+            affiliate.textContent=row.name+'：楽天市場で価格・在庫を確認（PR）';
+            card.append(affiliate);
+            const disclosure=document.createElement('p');
+            disclosure.className='small affiliate-note';
+            disclosure.textContent='広告リンクです。寸法が一致しても設置できる保証はありません。配管・扉・支持条件を購入前に確認してください。';
+            card.append(disclosure);
+          }
           const comparison=document.querySelector('.next .cta');
           if(comparison) {
             const link=document.createElement('a');
