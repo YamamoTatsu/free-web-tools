@@ -4,9 +4,9 @@ const PRODUCTS = Object.freeze([
   {id:'hb6049',name:'パール金属 HB-6049',min:36,max:53,depth:30,height:29.5,wall:false},
   {id:'ssrex',name:'Belca SSR-EX',min:50,max:75,depth:30.3,height:30.7,wall:false}
 ]);
-// Product URLs supplied by the site owner. Do not add an unverified product URL.
+// Owner-supplied URL checked on 2026-11-23. Do not add an unverified product URL.
+// Kurane's former Rakuten listing is unavailable; retain the comparison route only.
 const AFFILIATE_LINKS = Object.freeze({
-  nitori: 'https://a.r10.to/hPTehj',
   hb6049: 'https://a.r10.to/hgsC5B'
 });
 function evaluate(input) {
@@ -64,6 +64,12 @@ if(typeof document!=='undefined') {
             disclosure.className='small affiliate-note';
             disclosure.textContent='広告リンクです。寸法が一致しても設置できる保証はありません。配管・扉・支持条件を購入前に確認してください。';
             card.append(disclosure);
+          }
+          if(!row.needsSupportCheck && row.id==='nitori') {
+            const unavailable=document.createElement('p');
+            unavailable.className='small';
+            unavailable.textContent='楽天の掲載先を再確認中のため、購入リンクは停止しています。公式仕様・使用条件は比較記事から確認できます。';
+            card.append(unavailable);
           }
           const comparison=document.querySelector('.next .cta');
           if(comparison) {
