@@ -5,7 +5,7 @@ const vm=require('node:vm');
 const fs=require('node:fs');
 function render(values){
   const listeners={};
-  const element=()=>({children:[],dataset:{},textContent:'',append(child){this.children.push(child)},replaceChildren(){this.children=[]},scrollIntoView(){}});
+  const element=()=>({children:[],dataset:{},textContent:'',attributes:{},setAttribute(k,v){this.attributes[k]=v},append(child){this.children.push(child)},replaceChildren(){this.children=[]},scrollIntoView(){}});
   const results=element(),status=element();
   const elements=Object.fromEntries(Object.entries({width:40,depth:35,height:36,opening:40,walls:'yes',span:true,...values}).map(([k,v])=>[k,k==='span'?{checked:v}:{value:String(v)}]));
   const form={elements,addEventListener(type,fn){listeners[type]=fn}};
@@ -21,7 +21,8 @@ test('HB-6049 renders the verified affiliate destination, disclosure and safe li
   const links=purchases(card(r,'hb6049'));
   assert.equal(links.length,1);assert.equal(links[0].href,'https://a.r10.to/hgsC5B');
   assert.equal(links[0].target,'_blank');assert.equal(links[0].rel,'nofollow sponsored noopener noreferrer');
-  assert.match(links[0].textContent,/HB-6049.*PR/);
+  assert.match(links[0].textContent,/楽天.*PR/);
+  assert.match(links[0].attributes['aria-label'],/HB-6049.*PR/);
   assert.equal(purchases(card(r,'nitori')).length,0);assert.equal(purchases(card(r,'ssrex')).length,0);
 });
 test('Kurane stays comparable but its unavailable Rakuten listing never renders a purchase link',()=>{

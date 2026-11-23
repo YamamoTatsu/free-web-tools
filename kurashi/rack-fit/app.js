@@ -58,7 +58,8 @@ if(typeof document!=='undefined') {
             affiliate.rel='nofollow sponsored noopener noreferrer';
             affiliate.className='affiliate-action';
             affiliate.dataset.affiliateProduct=row.id;
-            affiliate.textContent=row.name+'：楽天市場で価格・在庫を確認（PR）';
+            affiliate.textContent='楽天で価格・在庫を確認（PR）';
+            affiliate.setAttribute('aria-label',row.name+'：楽天市場で価格・在庫を確認（PR）');
             card.append(affiliate);
             const disclosure=document.createElement('p');
             disclosure.className='small affiliate-note';
