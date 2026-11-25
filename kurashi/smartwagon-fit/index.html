@@ -152,7 +152,10 @@ function calculate(){
   if(obstacle==="blocked")misses.push("ホース・配管との干渉が確認されています。寸法が足りても購入前に配置を見直してください");
   if(obstacle==="unknown")notes.push("配管・ホース・防水パンなどの干渉が未確認");
   notes.push("床面、前方へ引き出す空間、洗濯機の振動は別途確認");
-  return {item:p,misses:misses,notes:notes,fit:misses.length===0};
+  const fit=misses.length===0;
+  const canJumpToProductButton=fit&&obstacle==="clear"
+   &&w-p.width>=0.5&&d-p.depth>=0.5&&h-p.height>=0.5;
+  return {item:p,misses:misses,notes:notes,fit:fit,canJumpToProductButton:canJumpToProductButton};
  });
 }
 function make(tag,cls,str){
@@ -182,7 +185,12 @@ function render(){
    url.searchParams.set("utm_medium","tool");
    url.searchParams.set("utm_campaign","smartwagon_fit_v1");
    url.searchParams.set("utm_content",r.item.id+"_candidate");
-   const a=make("a","cta",r.item.name+"の購入前チェックと比較を見る");
+   let linkText=r.item.name+"の購入前チェックと比較を見る";
+   if(r.canJumpToProductButton){
+    url.hash="rakuten-"+r.item.id;
+    linkText=r.item.name+"の楽天販売リンクを比較記事で確認";
+   }
+   const a=make("a","cta",linkText);
    a.href=url.toString(); c.append(a);
   }
   results.append(c);
