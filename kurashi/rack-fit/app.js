@@ -69,7 +69,7 @@ if(typeof document!=='undefined') {
           if(!row.needsSupportCheck && row.id==='nitori') {
             const unavailable=document.createElement('p');
             unavailable.className='small';
-            unavailable.textContent='クラネ8511551は2026年11月25日時点で公式販売ページに「販売終了」と表示されています。楽天購入リンクも停止中です。代替品の適合はこの診断では判定できません。';
+            unavailable.textContent='クラネ8511551は2026年11月25日時点で公式販売ページに「販売終了」と表示されています。購入リンクは停止しています。代替品の適合はこの診断では判定できません。';
             card.append(unavailable);
           }
           if(!row.needsSupportCheck && row.id==='ssrex') {
