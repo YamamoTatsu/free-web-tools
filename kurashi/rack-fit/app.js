@@ -69,7 +69,13 @@ if(typeof document!=='undefined') {
           if(!row.needsSupportCheck && row.id==='nitori') {
             const unavailable=document.createElement('p');
             unavailable.className='small';
-            unavailable.textContent='楽天の掲載先を再確認中のため、購入リンクは停止しています。公式仕様・使用条件は比較記事から確認できます。';
+            unavailable.textContent='クラネ8511551は2026年11月25日時点で公式販売ページに「販売終了」と表示されています。楽天購入リンクも停止中です。代替品の適合はこの診断では判定できません。';
+            card.append(unavailable);
+          }
+          if(!row.needsSupportCheck && row.id==='ssrex') {
+            const unavailable=document.createElement('p');
+            unavailable.className='small';
+            unavailable.textContent='SSR-EXの比較記事掲載先は2026年11月25日時点で購入不可と確認されています。購入用リンクは表示していません。価格・在庫は変動するため、最新の販売状況を確認してください。';
             card.append(unavailable);
           }
           const comparison=document.querySelector('.next .cta');
