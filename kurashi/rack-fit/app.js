@@ -75,7 +75,7 @@ if(typeof document!=='undefined') {
           if(!row.needsSupportCheck && row.id==='ssrex') {
             const unavailable=document.createElement('p');
             unavailable.className='small';
-            unavailable.textContent='SSR-EXの比較記事掲載先は2026年11月25日時点で購入不可と確認されています。購入用リンクは表示していません。価格・在庫は変動するため、最新の販売状況を確認してください。';
+            unavailable.textContent='SSR-EXの購入用リンクは診断には表示していません。比較記事の掲載先は2026年11月25日に購入可能な販売先へ更新されています。価格・在庫は変動するため、最新の販売状況は商品ページで確認してください。';
             card.append(unavailable);
           }
           const comparison=document.querySelector('.next .cta');
