@@ -86,12 +86,15 @@ if(typeof document!=='undefined') {
             const articleUrl=new URL(comparison.href);
             articleUrl.searchParams.set('utm_content','diagnosis_'+row.id);
             link.href=articleUrl.toString();
+            link.dataset.comparisonProduct=row.id;
+            link.dataset.trackPlacement='result_card';
             link.textContent=row.name+(row.needsSupportCheck?'の両側壁付け条件を先に確認':'の設置条件を比較記事で確認');
             card.append(link);
           }
         }
         results.append(card);
       }
+      if(typeof window!=='undefined'&&window.kurashiTrack) window.kurashiTrack('diagnosis_complete',{candidates:rows.filter(r=>r.candidate).map(r=>r.id),candidate_count:rows.filter(r=>r.candidate).length});
     } catch(error) { status.textContent=error.message; }
     // Keep the outcome visible beneath the long form on narrow screens.
     status.scrollIntoView({block:'start'});
